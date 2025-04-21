@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  price-service:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:h2:mem:mydb;DB_CLOSE_DELAY=-1
+      - SPRING_DATASOURCE_USERNAME=sa
+      - SPRING_DATASOURCE_PASSWORD=
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=none
+      - SPRING_H2_CONSOLE_ENABLED=true
+      - SPRING_H2_CONSOLE_PATH=/h2-console
+      - SPRING_SQL_INIT_MODE=always
+      - SPRING_SQL_INIT_SCHEMA_LOCATIONS=classpath:schema.sql
+      - SPRING_SQL_INIT_DATA_LOCATIONS=classpath:data.sql
+    volumes:
+      - h2-data:/var/lib/h2
+    networks:
+      - my-network
+networks:
+  my-network:
+    driver: bridge
+volumes:
+  h2-data:
