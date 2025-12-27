@@ -18,15 +18,17 @@ public class PricePersistenceAdapter implements PriceRepositoryPort {
     private final PriceJpaRepository priceJpaRepository;
     private final DefaultPriceJpaRepository defaultPriceJpaRepository;
 
-    public PricePersistenceAdapter(PriceJpaRepository priceJpaRepository, DefaultPriceJpaRepository defaultPriceJpaRepository) {
+    public PricePersistenceAdapter(PriceJpaRepository priceJpaRepository,
+            DefaultPriceJpaRepository defaultPriceJpaRepository) {
         this.priceJpaRepository = priceJpaRepository;
         this.defaultPriceJpaRepository = defaultPriceJpaRepository;
+        System.out.println("This is a string!");
     }
 
     @Override
     public List<Price> findApplicablePrices(LocalDateTime applicationDate, Integer productId, Integer brandId) {
         return priceJpaRepository.findByProductIdAndBrandIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
-                        productId, brandId, applicationDate, applicationDate)
+                productId, brandId, applicationDate, applicationDate)
                 .stream()
                 .map(PriceEntity::toDomain)
                 .collect(Collectors.toList());

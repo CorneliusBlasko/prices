@@ -2,6 +2,7 @@ plugins {
     id("java")
     id("org.springframework.boot") version "3.4.4"
     id("io.spring.dependency-management") version "1.0.15.RELEASE"
+    application
 }
 
 group = "org.alberto.mut"
@@ -14,6 +15,10 @@ java {
 
 repositories {
     mavenCentral()
+}
+
+application {
+    mainClass.set("org.alberto.mut.Main")
 }
 
 dependencies {
